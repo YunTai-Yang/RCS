@@ -1,12 +1,11 @@
-from http.client import TOO_MANY_REQUESTS
 import numpy as np
 from transformer import Transformer
 
 class Environment:
   def __init__ (self):
     # gravity
-    self.g = np.array([9.81,0,0])                # m / s^2
-    self.wind    = np.array([0,0,0])
+    self.g     = np.array([9.81,0,0])                # m / s^2
+    self.wind  = np.array([0,0,0])
 
   # Kinematics
   def free_fall(self,rocket,dt):

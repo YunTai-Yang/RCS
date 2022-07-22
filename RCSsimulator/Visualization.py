@@ -184,6 +184,7 @@ class Visualizer:
 
         animate = animation.FuncAnimation(fig,self.animate, frames = int((simTime)/self.timestep+2), interval=1)
         plt.show()
+        # animate.save('Simulation.mp4',fps=20)
 
     def animate(self,i):
         index = i*self.time_scale

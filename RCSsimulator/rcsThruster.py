@@ -4,10 +4,10 @@ class RCS:
   def __init__(self):
 
     # Set thrusters
-    self.left_thrust      = np.array([0, -0.5, 0])    # N
-    self.right_thrust     = np.array([0,  0.5, 0])    # N
-    self.forward_thrust   = np.array([0,  0,   0])    # N
-    self.backward_thrust  = np.array([0,  0,   0])    # N
+    self.left_thrust      = np.array([0,  0,  0])    # N
+    self.right_thrust     = np.array([0,  0,  0])    # N
+    self.forward_thrust   = np.array([0,  0,  0])    # N
+    self.backward_thrust  = np.array([0,  0,  0])    # N
 
     # Set used time
     self.useTime_left     = 0      # sec
