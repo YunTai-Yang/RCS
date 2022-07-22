@@ -7,7 +7,7 @@ import numpy as np
 
 class Visualizer:
     def __init__ (self,rocket,simTime,timestep,witch,scale=100):
-        print('======Start Visualization======')
+        print('======Wait for Visualization======')
 
         if witch == '3d':
             self.animation(rocket,simTime,timestep,scale)
@@ -16,7 +16,7 @@ class Visualizer:
             self.set_visualmodel(witch,simTime,timestep)
             self.visualization_start(witch)
 
-
+    #  Set up
     def set_variables(self,rocket):
         self.Vx = rocket.velocitylist[:,1]
         self.Vy = rocket.velocitylist[:,2]
@@ -49,6 +49,7 @@ class Visualizer:
 
         self.landingTime = rocket.landingTime
 
+    #  Set up
     def set_visualmodel(self,witch,simTime,timestep):
         n = len(witch)
         self.witch = witch
@@ -82,6 +83,7 @@ class Visualizer:
         self.fig = plt.figure(figsize=(min(self.col*4,20),min(self.row*3,12)),facecolor='w')
         self.set_figures(n)
 
+    # Set Common params
     def set_figures(self,n):
         self.ax = [0]*n
         for i in range(n):
@@ -93,7 +95,7 @@ class Visualizer:
             self.ax[i].axhline(y=0,ls='--',color='k')
             self.ax[i].axvline(x=self.landingTime,ls='--',color='r')
 
-
+    # Visualization start
     def visualization_start(self,witch):
         n = len(witch)
         for i in range(n):
@@ -101,6 +103,7 @@ class Visualizer:
         plt.tight_layout()
         plt.show()
 
+    # plotting
     def set_plot(self,witch,i):
         if   witch == 'Vx':
             self.ax[i].set_ylabel(r'Vx $[m/s]$',fontsize=10)
@@ -173,6 +176,7 @@ class Visualizer:
         else:
             self.ax[i].text(3.5,0.5,r'$Check$'+' '+ r'$Variable$'+' '+r'$Name$'+f'\n : {witch}',fontsize=15)
 
+    # 3D animation
     def animation(self,rocket,simTime,timestep,time_scale):
         self.rocket = rocket
         self.simTime = simTime
@@ -186,6 +190,7 @@ class Visualizer:
         plt.show()
         # animate.save('Simulation.mp4',fps=20)
 
+    # Set animation
     def animate(self,i):
         index = i*self.time_scale
         if i == int((self.simTime)/self.timestep+1):

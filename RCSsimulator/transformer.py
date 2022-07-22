@@ -4,7 +4,7 @@ class Transformer:
   def __init___(self):
       pass
   
-  # Make transform matrix M = yaw@pitch@roll
+  # Make transform matrix
   def body_to_earth(self, bodyAngle):
 
       roll   = bodyAngle[0]

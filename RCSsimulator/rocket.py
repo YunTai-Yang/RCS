@@ -1,4 +1,5 @@
 import numpy as np
+import time
 
 class Rocket:
   def __init__(self,RocketStatus,RCS):
@@ -25,6 +26,8 @@ class Rocket:
   def launch(self,environment,timestep = 0.001, simTime = 20):
 
     print('======start simulation======')
+    time.sleep(1)
+
     while self.timeFlow <= simTime:
       # in burnning
       if self.timeFlow <= self.status.burnTime:
@@ -34,6 +37,7 @@ class Rocket:
       else :
         self.status.thrust = np.array([0,0,0])
 
+        # finish burnning but still fying
         if self.status.position[0] > 0:
           environment.free_fall(self,timestep)
 
@@ -49,8 +53,12 @@ class Rocket:
       # Save datas for Visualization
       self.saveDatas()
 
+      # Progress
+      if self.timeFlow%2 == 0:
+        print("Progress : %.1f%%"%(self.timeFlow/simTime*100))
       self.timeFlow += timestep
       self.timeFlow = np.around(self.timeFlow,5)
+
     print('======finish simulation======')
 
   def saveDatas(self):
@@ -61,6 +69,6 @@ class Rocket:
     self.angulerVelocitylist = np.append(self.angulerVelocitylist,np.array([self.status.angulerVelocity]),axis=0)
     self.masslist            = np.append(self.masslist,np.array([self.status.structureMass + self.status.propellantMass]),axis=0)
     self.massCenterlist      = np.append(self.massCenterlist,np.array([self.status.massCenter]),axis=0)
-    self.thrustlist            = np.append(self.thrustlist,np.array([self.status.thrust]),axis=0)
+    self.thrustlist          = np.append(self.thrustlist,np.array([self.status.thrust]),axis=0)
     self.totalDraglist       = np.append(self.totalDraglist,np.array([self.totalDrag]),axis = 0)
-    self.timeFlowList            = np.append(self.timeFlowList,np.array([self.timeFlow]),axis=0)
+    self.timeFlowList        = np.append(self.timeFlowList,np.array([self.timeFlow]),axis=0)

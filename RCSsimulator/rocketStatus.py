@@ -15,10 +15,10 @@ class RocketStatus:
     self.acceleration = np.array([0,0,0])         # m/s^2
 
     self.angle               = np.array([0,0,10])*np.pi/180  # ras
-    self.angulerVelocity     = np.array([0,0,0])*np.pi/180  # rad / s
-    self.angulerAcceleration = np.array([0,0,0])*np.pi/180  # rad / s^2
+    self.angulerVelocity     = np.array([0,0,0])*np.pi/180   # rad / s
+    self.angulerAcceleration = np.array([0,0,0])*np.pi/180   # rad / s^2
 
-    self.thrust   = np.array([100,0,0])                           # x,y,z thrust in rocket inertia frame
+    self.thrust   = np.array([100,0,0])                      # x,y,z thrust in rocket inertia frame
     self.burnTime = 3                             # sec
 
     self.structureMass  = 3                       # kg
@@ -29,7 +29,7 @@ class RocketStatus:
     self.massCenter = 0.6                         # m from bottom
     self.aeroCenter = 0.45                        # m from bottom
 
-    self.length   = 1.3                          # m
+    self.length   = 1.3                           # m
     self.diameter = 0.09                          # m
 
     self.dragCoeff  = 0.5
