@@ -6,7 +6,7 @@ class RocketStatus:
     self.velocity     = np.array([0,0,0])         # m/s
     self.acceleration = np.array([0,0,0])         # m/s^2
 
-    self.angle               = np.array([0,15,20])*np.pi/180  # ras
+    self.angle               = np.array([0,0,3])*np.pi/180  # ras
     self.angulerVelocity     = np.array([0,0,0])*np.pi/180  # rad / s
     self.angulerAcceleration = np.array([0,0,0])*np.pi/180  # rad / s^2
 
