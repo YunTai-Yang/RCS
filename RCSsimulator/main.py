@@ -1,37 +1,50 @@
+from Visualization import Visualizer
 from environment import Environment
 from rocketStatus import RocketStatus
 from rcsThruster import RCS
 from rocket import Rocket
 
+import numpy as np
+
 import matplotlib.pyplot as plt
 from mpl_toolkits.mplot3d import axes3d
-# https://jehyunlee.github.io/2021/07/10/Python-DS-80-mpl3d2/
+import matplotlib.animation as animation
+
+from transformer import Transformer
+
 
 if __name__ == '__main__':
+
   rocketStatus = RocketStatus()
   rcs_thruster = RCS()
   rocket = Rocket(rocketStatus, rcs_thruster)
+
+  # Simulation Time (sec)
   simTime = 20
-  rocket.launch(environment = Environment(),timestep = 0.01, simTime = simTime)
-  print(rocket.positionlist)
-  
-  fig = plt.figure()
-  ax = fig.add_subplot(331)       # Trajectory
-  ax2 = fig.add_subplot(332)      # Mass
-  ax3 = fig.add_subplot(333)      # Roll
-  ax4 = fig.add_subplot(334)      # Pitch
-  ax5 = fig.add_subplot(335)      # Yaw
- 
-  ax.plot(rocket.positionlist[:,0],rocket.positionlist[:,2])
-  ax5.plot(rocket.timeList,rocket.anglelist[:,1])
-  # ax.plot(rocket.positionlist[:,0],rocket.positionlist[:,2])
-  # ax2.plot(rocket.timeList,rocket.masslist)
+  timestep = 0.001
 
-  ax.set_xlim(0,500)
-  ax.set_ylim(0,500)
-  # ax.set_zlim(0,300)
+  rocket.launch(environment = Environment(),timestep = timestep, simTime = simTime)
 
-  # ax2.set_xlim(0,simTime)
-  # ax2.set_ylim(rocket.masslist[-1]-1,rocket.masslist[0]+1)
+  # which = ['Vx','Vy','Vz','V','Ax','Ay','Az','A','roll','pitch','yaw','','Wx','Wy','Wz','','Mass','Thrust','Drag']
+  which = ['Vz','Az','yaw','Wz']
+  # which = '3d'
+  Visualizer(rocket,simTime,timestep,which)
 
-  plt.show()
+  '''
+    witch :
+
+     3d
+
+     or
+
+     Vx  Vy  Vz  V
+     Ax  Ay  Az  A
+
+     roll pitch yaw
+     Wx   Wy   Wz
+
+     Mass Thrust Drag
+
+     (Everything you choose)
+
+     '''
