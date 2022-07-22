@@ -20,8 +20,8 @@ if __name__ == '__main__':
 
   # Visualization
   # which = ['Vx','Vy','Vz','V','Ax','Ay','Az','A','roll','pitch','yaw','','Wx','Wy','Wz','','Mass','Thrust','Drag']
-  which = ['Vz','Az','yaw','Wz']
-  # which = '3d'
+  # which = ['Vz','Az','yaw','Wz']
+  which = '3d'
   Visualizer(rocket,simTime,timestep,which)
 
   '''
