@@ -1,3 +1,7 @@
+# 0. Quick Start
+    - python3 main.py
+    
+----------
 # 1. This is Rocket Simulation.
 
     - As you can see, main.py is main.
