@@ -1,48 +1,37 @@
-import numpy as np
-from transformer import Transformer
-class Environment:
-  def __init__ (self):
-    self.g = np.array([0,0,9.81])                # m / s^2
-    self.wind    = np.array([0,0,0])
+from environment import Environment
+from rocketStatus import RocketStatus
+from rcsThruster import RCS
+from rocket import Rocket
 
-  def free_fall(self,rocket,dt):
-        T = rocket.status.thrust
+import matplotlib.pyplot as plt
+from mpl_toolkits.mplot3d import axes3d
+# https://jehyunlee.github.io/2021/07/10/Python-DS-80-mpl3d2/
 
-        p_v = np.append(rocket.status.position,rocket.status.velocity)
-        a_w = np.append(rocket.status.angle,rocket.status.angulerVelocity)
+if __name__ == '__main__':
+  rocketStatus = RocketStatus()
+  rcs_thruster = RCS()
+  rocket = Rocket(rocketStatus, rcs_thruster)
+  simTime = 20
+  rocket.launch(environment = Environment(),timestep = 0.01, simTime = simTime)
+  print(rocket.positionlist)
+  
+  fig = plt.figure()
+  ax = fig.add_subplot(331)       # Trajectory
+  ax2 = fig.add_subplot(332)      # Mass
+  ax3 = fig.add_subplot(333)      # Roll
+  ax4 = fig.add_subplot(334)      # Pitch
+  ax5 = fig.add_subplot(335)      # Yaw
+ 
+  ax.plot(rocket.positionlist[:,0],rocket.positionlist[:,2])
+  ax5.plot(rocket.timeList,rocket.anglelist[:,1])
+  # ax.plot(rocket.positionlist[:,0],rocket.positionlist[:,2])
+  # ax2.plot(rocket.timeList,rocket.masslist)
 
-        m = rocket.status.structureMass + rocket.status.propellantMass
+  ax.set_xlim(0,500)
+  ax.set_ylim(0,500)
+  # ax.set_zlim(0,300)
 
-        A = np.array([[1, 0, 0, dt ,0 ,0],
-                      [0, 1, 0, 0, dt ,0],
-                      [0, 0, 1, 0, 0, dt],
-                      [0, 0, 0, 1 ,0 ,0],
-                      [0, 0, 0, 0, 1 ,0],
-                      [0, 0, 0, 0, 0, 1]])
+  # ax2.set_xlim(0,simTime)
+  # ax2.set_ylim(rocket.masslist[-1]-1,rocket.masslist[0]+1)
 
-        B = np.array([[0.5*dt**2, 0,         0],
-                      [0,         0.5*dt**2, 0],
-                      [0,         0,         0.5*dt**2],
-                      [dt,        0,         0],
-                      [0,         dt,        0],
-                      [0,         0,         dt]])
-
-        con_vec = Transformer().body_to_earth(a_w[0:3])
-        T = np.array(con_vec@T)
-
-        a = T/m -self.g
-        p_v = A@p_v + B@a
-
-        rocket.status.position         = p_v[0:3]
-        rocket.status.velocity         = p_v[3:6]
-        rocket.status.angle            = a_w[0:3]
-        rocket.status.anglulerVelocity = a_w[3:6]
-        print(T)
-        if not np.array_equal(T,np.array([0,0,0])):
-            rocket.status.propellantMass  -= rocket.status.burnratio*dt
-        # print(p_v)
-
-
-        
-
-
+  plt.show()
