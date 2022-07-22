@@ -1,9 +1,9 @@
 # 1. This is Rocket Simulation.
 
-
-	- As you can see, main.py is main.
+    - As you can see, main.py is main.
 	
-    - In this file, you should set simulation time and timestep also all class variables.
+    - In this file, you should set simulation time and timestep
+    - Define classes
 
 # 2. rocket.py is your rocket node for simulation.
 
