@@ -5,9 +5,9 @@
 	
     - In this file, you should set simulation time and timestep also all class variables.
 
-# 2. rocket.py is your rocket for simulation.
+# 2. rocket.py is your rocket node for simulation.
 
-    - Set your rocket status in rocketStatus.
+    - Set your rocket status in rocketStatus.py and put it to rocket
 	
     - And launch rocket in rocket.py.
 	
@@ -16,7 +16,7 @@
 # 3. environment.py is environment where you rocket launched.
 
     - Set gravity and wind, etc.
-    - And set state-space, calculate them
+    - And set state-space equation, calculate them
     
 * Now, base settings are complete
 
