@@ -21,5 +21,5 @@
 * Now, base settings are complete
 
 
-# 4. Go to main.py and see visualizer
+# 4. Go to main.py and Set visualizer
     - In visualizer args, set 'witch' for visualize
