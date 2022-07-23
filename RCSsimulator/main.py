@@ -25,7 +25,7 @@ if __name__ == '__main__':
   Visualizer(rocket,simTime,timestep,which)
 
   '''
-    witch :
+    which :
 
      3d
 
