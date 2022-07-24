@@ -3,7 +3,7 @@ import numpy as np
 class RocketStatus:
   def __init__(self):
     # 로켓의 헤딩 방향  : x / roll
-    # 로켓의 앞쪽       : y / pitch
+    # 로켓의 앞쪽      : y / pitch
     # 로켓의 오른쪽     : z / yaw
 
     # 아래의 변수는 (x,y,z) 또는 (roll, pitch, yaw) 순서.
@@ -18,8 +18,8 @@ class RocketStatus:
     self.angulerVelocity     = np.array([0,0,0])*np.pi/180   # rad / s
     self.angulerAcceleration = np.array([0,0,0])*np.pi/180   # rad / s^2
 
-    self.thrust   = np.array([100,0,0])                      # x,y,z thrust in rocket inertia frame
-    self.burnTime = 3                             # sec
+    self.thrust   = np.array([50,0,0])            # x,y,z thrust in rocket inertia frame
+    self.burnTime = 10                            # sec
 
     self.structureMass  = 3                       # kg
     self.propellantMass = 0.5                     # kg

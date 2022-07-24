@@ -1,11 +1,11 @@
 import numpy as np
 from transformer import Transformer
+import random
 
 class Environment:
   def __init__ (self):
     # gravity
-    self.g     = np.array([9.81,0,0])                # m / s^2
-    self.wind  = np.array([0,0,0])
+    self.g     = np.array([9.81,0,0]) # m / s^2
 
   # Kinematics
   def free_fall(self,rocket,dt):
@@ -84,40 +84,40 @@ class Environment:
         # Calculate thrust and transform thrust
         M = Transformer().body_to_earth(a_w[0:3])
         N = np.array([0,10,0])
-        T = T
         T = np.array(M@T)        
         torqe_T = np.around(np.cross(M@mc2bottom,T),10)
+
         # Calculate drag and transform drag
         D = -0.5*rho*S*Cd*np.linalg.norm(p_v[3:6])*np.array(p_v[3:6])
+        torque_D = np.cross(M@mc2ac,D)
 
-        
-        torqe_D = np.cross(M@mc2ac,D)
-
-
+        #wind model
+        wa = np.pi*0.1*0.3 #Section m^2
+        W  = 0.5 * np.linalg.norm(rocket.wind) * rocket.wind * rho * 1.5 * wa
+        torqe_W = np.cross(M@mc2ac,W)
+    
         # Calculate total acceleration
-        total_accel = (T+D)/m -self.g
+        total_accel = (T+D+W)/m - self.g
         p_v = A@p_v + B@total_accel
 
         # Calculate total moment 
-        total_anguler_accel = (torqe_T+torqe_D)/I
-
+        total_anguler_accel = (torqe_T+torque_D)/I
         a_w = A2@a_w + B2@total_anguler_accel
 
-
         if rocket.timeFlow <= 3:
-            rocket.status.propellantMass  -= rocket.status.burnratio*dt
+            rocket.status.propellantMass  -= rocket.status.burnratio * dt
 
         # Update status
         rocket.status.position         = p_v[0:3]
         rocket.status.velocity         = p_v[3:6]
         rocket.status.acceleration     = total_accel
-
         rocket.status.angle            = a_w[0:3]
         rocket.status.angulerVelocity  = a_w[3:6]
 
-        rocket.totalDrag        = D
+        # Wind Velocity: -0.02 ~ 0.02
+        wind_x = random.randint(-10,10) * 0.001
+        wind_y = random.randint(-10,10) * 0.001
+        wind_z = random.randint(-10,10) * 0.001
 
-
-        
-
-
+        rocket.wind       = rocket.wind + np.array([wind_x, wind_y, wind_z])
+        rocket.totalDrag  = W

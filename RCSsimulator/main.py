@@ -9,10 +9,10 @@ if __name__ == '__main__':
 
   rocketStatus = RocketStatus()
   rcs_thruster = RCS()
-  rocket = Rocket(rocketStatus, rcs_thruster)
+  rocket       = Rocket(rocketStatus, rcs_thruster)
 
   # Simulation Time (sec)
-  simTime = 20
+  simTime  = 30
   timestep = 0.001
 
   # Simulation
@@ -20,7 +20,7 @@ if __name__ == '__main__':
 
   # Visualization
   # which = ['Vx','Vy','Vz','V','Ax','Ay','Az','A','roll','pitch','yaw','','Wx','Wy','Wz','','Mass','Thrust','Drag']
-  # which = ['Vz','Az','yaw','Wz']
+  # which = ['roll','pitch','yaw','Dragx','Dragy','Dragz']
   which = '3d'
   Visualizer(rocket,simTime,timestep,which)
 
